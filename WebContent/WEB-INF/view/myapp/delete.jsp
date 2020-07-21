@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
 <%@ page import= "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,17 +20,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<my:navbar addClass="navbar-dark bg-dark" menu1 = "Home" menu2="Link1" menu3 = "Link2"/>
-
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>main contents</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem distinctio animi porro error tenetur dicta assumenda inventore accusamus beatae illum? Repellat at reiciendis id mollitia odio blanditiis quas ad nam!</p>
-		</div>
-	</div>
-</div>
+<h1>회원 삭제 ㅠ</h1>
+<form action="" method="post">
+암호: <input type="password" name="password" /> <br />
+<input type="submit" value= "삭제!!"/>
+</form>
+${message }
 </body>
 </html>
-

@@ -71,5 +71,4 @@
     <servlet-name>servlet3</servlet-name>
     <url-pattern>/foo/*</url-pattern>
   </servlet-mapping>
-  
 </web-app>

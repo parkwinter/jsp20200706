@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
 <%@ page import= "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,17 +20,60 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>데이터 입력~</h1>
+<form action="" method="post">
+이름 : <input type="text" name="name" /> <br />
+나이 : <input type="number" name="age" /> <br />
+<input type="submit" value="등록!!!" />
+</form>
 
-<my:navbar addClass="navbar-dark bg-dark" menu1 = "Home" menu2="Link1" menu3 = "Link2"/>
+<a href="jdbcEx2.jsp">리스트 확인</a>
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>main contents</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem distinctio animi porro error tenetur dicta assumenda inventore accusamus beatae illum? Repellat at reiciendis id mollitia odio blanditiis quas ad nam!</p>
-		</div>
-	</div>
-</div>
+<%
+
+String name = request.getParameter("name");
+String age = request.getParameter("age");
+if(name != null & age != null ){
+
+// 1. 클래스 로딩
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+// 2. 연결 생성
+//	2.1 접속정보
+String url = "jdbc:mysql://localhost/test1"
+				+ "?serverTimezone=Asia/Seoul" ;
+String id = "root";
+String pw = "rootpw";
+
+Connection con = DriverManager.getConnection(url, id, pw);
+
+
+// 3. statement 생성
+Statement stmt = con.createStatement();
+
+// 4. 쿼리 실행
+
+String sql = "INSERT INTO member VALUES ('"+name+ "',"+ age+")";
+int rows = stmt.executeUpdate(sql);
+
+
+
+// 5. 결과 처리
+out.print(rows + "개의 행이 업데이트 되었습니다.");
+
+// 6. 자원 종료
+
+
+if(stmt != null){
+	stmt.close();
+}
+
+if(con != null){
+	con.close();
+}
+
+}
+%>
+
 </body>
 </html>
-

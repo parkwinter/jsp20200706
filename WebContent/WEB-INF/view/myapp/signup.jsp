@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
 <%@ page import= "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,17 +20,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>~회원가입~</h1>
 
-<my:navbar addClass="navbar-dark bg-dark" menu1 = "Home" menu2="Link1" menu3 = "Link2"/>
+<form action="" method="post">
+이메일 : <input type="email" name="email" /> <br />
+패스워드 : <input type="password" name="password" /> <br />
+이름 : <input type="text" name="name" /> <br />
+나이 : <input type="number" name="age" /> <br />
+<input type="submit" value="등록하기~!" />
+</form>
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>main contents</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem distinctio animi porro error tenetur dicta assumenda inventore accusamus beatae illum? Repellat at reiciendis id mollitia odio blanditiis quas ad nam!</p>
-		</div>
-	</div>
-</div>
+
 </body>
 </html>
-

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
 <%@ page import= "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,17 +20,43 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+// 1. 클래스 로딩
+Class.forName("com.mysql.cj.jdbc.Driver");
 
-<my:navbar addClass="navbar-dark bg-dark" menu1 = "Home" menu2="Link1" menu3 = "Link2"/>
+// 2. 연결 생성
+//	2.1 접속정보
+String url = "jdbc:mysql://localhost/test1"
+				+ "?serverTimezone=Asia/Seoul" ;
+String id = "root";
+String pw = "rootpw";
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>main contents</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem distinctio animi porro error tenetur dicta assumenda inventore accusamus beatae illum? Repellat at reiciendis id mollitia odio blanditiis quas ad nam!</p>
-		</div>
-	</div>
-</div>
+Connection con = DriverManager.getConnection(url, id, pw);
+
+
+// 3. statement 생성
+Statement stmt = con.createStatement();
+
+// 4. 쿼리 실행
+String sql = "INSERT INTO member VALUES ('jane', 99)";
+int rows = stmt.executeUpdate(sql);
+
+
+
+// 5. 결과 처리
+out.print(rows + "개의 행이 업데이트 되었습니다.");
+
+// 6. 자원 종료
+
+
+if(stmt != null){
+	stmt.close();
+}
+
+if(con != null){
+	con.close();
+}
+
+%>
 </body>
 </html>
-

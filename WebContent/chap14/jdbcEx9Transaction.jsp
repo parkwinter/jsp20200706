@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
 <%@ page import= "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -19,17 +20,71 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+// 1. 클래스 로딩
+Class.forName("com.mysql.cj.jdbc.Driver");
 
-<my:navbar addClass="navbar-dark bg-dark" menu1 = "Home" menu2="Link1" menu3 = "Link2"/>
+// 2. 연결 생성
+//	2.1 접속정보
+String url = "jdbc:mysql://localhost/test1"
+				+ "?serverTimezone=Asia/Seoul" ;
+String id1 = "root";
+String pw = "rootpw";
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>main contents</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem distinctio animi porro error tenetur dicta assumenda inventore accusamus beatae illum? Repellat at reiciendis id mollitia odio blanditiis quas ad nam!</p>
-		</div>
-	</div>
-</div>
+Connection con = DriverManager.getConnection(url, id1, pw);
+
+
+// 3. statement 생성
+String sql1 = "UPDATE money SET money="
+				+ "(SELECT money-10 WHERE id=1)"
+				+ "WHERE id = 1";
+String sql2 = "UPDATE money SET money="
+		+ "(SELECT money+10 WHERE id=2)"
+		+ "WHERE id = 2";
+
+PreparedStatement pstmt1 = con.prepareStatement(sql1);
+PreparedStatement pstmt2 = con.prepareStatement(sql2);
+
+
+// 4. 쿼리 실행
+//	4.1 auto commit -> false;
+con.setAutoCommit(false);
+
+pstmt1.executeUpdate();
+
+boolean trouble = true;
+
+if(!trouble){
+	
+	pstmt2.executeUpdate();
+	con.commit();
+	
+}else {
+	con.rollback();
+}
+
+
+
+
+// 5. 결과 처리
+out.print("입금과 출금 완료");
+
+// 6. 자원 종료
+
+
+if(pstmt1 != null){
+	pstmt1.close();
+}
+
+if(pstmt2 != null){
+	pstmt2.close();
+}
+
+
+if(con != null){
+	con.close();
+}
+
+%>
 </body>
 </html>
-
